@@ -11,6 +11,11 @@ shell: bash
 
 steps:
   - type: Command
+    name: "Download CycloneDx-cli executable and install dependencies"
+    command: |
+      wget https://github.com/CycloneDX/cyclonedx-cli/releases/download/v0.24.2/cyclonedx-linux-x64
+      yum install -y libicu
+  - type: Command
     name: "Generate SBOM for unified_debug"
     command: |
         pushd unified_debug
