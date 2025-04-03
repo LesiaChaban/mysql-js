@@ -1,4 +1,4 @@
-# Copyright (c) 2023, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2023-2025, Oracle and/or its affiliates. All rights reserved.
 
 # This OCI DevOps build specification file [1] generates a Software Bill of Materials (SBOM) of the repository.
 # The file is needed to run checks for third-party vulnerabilities and business approval according to Oracle’s GitHub policies.
@@ -11,14 +11,58 @@ shell: bash
 
 steps:
   - type: Command
-    name: "Install dependencies & cyclonedx-node-npm package"
+    name: "Generate SBOM for unified_debug"
     command: |
-      npm install && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
+        pushd unified_debug
+        npm install && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
+        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        popd
+
   - type: Command
-    name: "Run cyclonedx-node-npm package"
+    name: "Generate SBOM for jones-test"
     command: |
-      # For more details, visit https://github.com/CycloneDX/cyclonedx-node-npm/blob/main/README.md
-      npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        pushd jones-test
+        npm install && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
+        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        popd
+
+  - type: Command
+    name: "Generate SBOM for jones-promises"
+    command: |
+        pushd jones-promises
+        npm install && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
+        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        popd
+
+  - type: Command
+    name: "Generate SBOM for jones-ndb"
+    command: |
+        pushd jones-ndb
+        npm install && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
+        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        popd
+
+  - type: Command
+    name: "Generate SBOM for jones-mysql"
+    command: |
+        pushd jones-mysql
+        npm install && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
+        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        popd
+
+  - type: Command
+    name: "Generate SBOM for database-jones"
+    command: |
+        pushd database-jones
+        npm install && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
+        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        popd
+
+  - type: Command
+    name: "Merge SBOMs"
+    command: |
+        cyclonedx merge --input-files database-jones/artifactSBOM.json jones-mysql/artifactSBOM.json jones-ndb/artifactSBOM.json jones-promises/artifactSBOM.json jones-test/artifactSBOM.json unified_debug/artifactSBOM.json --output-file  artifactSBOM.json
+
 outputArtifacts:
   - name: artifactSBOM
     type: BINARY
