@@ -20,7 +20,7 @@ steps:
     command: |
         pushd unified_debug
         npm install --ignore-scripts && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
-        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
         popd
 
   - type: Command
@@ -28,7 +28,7 @@ steps:
     command: |
         pushd jones-test
         npm install --ignore-scripts && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
-        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
         popd
 
   - type: Command
@@ -36,7 +36,7 @@ steps:
     command: |
         pushd jones-promises
         npm install --ignore-scripts && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
-        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
         popd
 
   - type: Command
@@ -44,7 +44,7 @@ steps:
     command: |
         pushd jones-ndb
         npm install --ignore-scripts && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
-        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
         popd
 
   - type: Command
@@ -52,7 +52,7 @@ steps:
     command: |
         pushd jones-mysql
         npm install --ignore-scripts && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
-        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
         popd
 
   - type: Command
@@ -60,7 +60,7 @@ steps:
     command: |
         pushd database-jones
         npm install --ignore-scripts && npm install --save-dev @cyclonedx/cyclonedx-npm@1.19.3
-        npx @cyclonedx/cyclonedx-npm --omit dev --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
+        npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file artifactSBOM.json --spec-version 1.4 --flatten-components
         popd
 
   - type: Command
