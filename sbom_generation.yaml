@@ -14,7 +14,6 @@ steps:
     name: "Download CycloneDx-cli executable and install dependencies"
     command: |
       wget https://github.com/CycloneDX/cyclonedx-cli/releases/download/v0.24.2/cyclonedx-linux-x64
-      chmod +x cyclonedx-linux-x64
       yum install -y libicu
   - type: Command
     name: "Generate SBOM for unified_debug"
@@ -68,6 +67,7 @@ steps:
     name: "Merge multiple SBOMs using CycloneDX-cli"
     command: |
       # For more details, visit https://github.com/CycloneDX/cyclonedx-cli/blob/main/README.md
+      chmod +x cyclonedx-linux-x64
       ./cyclonedx-linux-x64 merge --input-files database-jones/artifactSBOM.json jones-mysql/artifactSBOM.json jones-ndb/artifactSBOM.json jones-promises/artifactSBOM.json jones-test/artifactSBOM.json unified_debug/artifactSBOM.json --output-file artifactSBOM.json
 
 outputArtifacts:
